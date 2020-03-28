@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <title>Apk|CRUD</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var kode_pelanggan = decodeURI(getUrlVars()["kode_pelanggan"]);
+        var nama_pelanggan = decodeURI(getUrlVars()["nama_pelanggan"]);
+        var kontak = decodeURI(getUrlVars()["kontak"]);
+        var alamat = decodeURI(getUrlVars()["alamat"]);
+        var telepon = decodeURI(getUrlVars()["telepon"]);
+        $("#kode_pelanggan").val(kode_pelanggan);
+        $("#nama_pelanggan").val(nama_pelanggan);
+        $("#kontak").val(kontak);
+        $("#alamat").val(alamat);
+        $("#telepon").val(telepon);
+        $("#update").click(function() {
+            var kode_pelanggan = $("#kode_pelanggan").val();
+            var nama_pelanggan = $("#nama_pelanggan").val();
+            var kontak = $("#kontak").val();
+            var alamat = $("#alamat").val();
+            var telepon = $("#telepon").val();
+            var dataString = "kode_pelanggan=" + kode_pelanggan + "&nama_pelanggan=" + nama_pelanggan + "&kontak=" + kontak + "&alamat=" + alamat + "&telepon=" + telepon + "&update=";
+            $.ajax({
+                type: "POST",
+                url: "http://haykalpt.000webhostapp.com/phonegab-app/php/update.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var kode_pelanggan = $("#kode_pelanggan").val();
+            var dataString = "kode_pelanggan=" + kode_pelanggan + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "http://haykalpt.000webhostapp.com/phonegab-app/php/delete.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;background-color: blue">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Update Data Pelanggan</h1>
+        <a class="button button-clear" href="readjson.html">Lihat Data Pelanggan</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="kode_pelanggan" value=""/>
+        <div class="item">
+            <label>Nama Pelanggan</label>
+            <input type="text" id="nama_pelanggan" value=""/>
+        </div>
+        <div class="item">
+            <label>Kontak</label>
+            <input type="text" id="kontak" value=""/>
+        </div>
+        <div class="item">
+            <label>Alamat</label>
+            <input type="text" id="alamat" value=""/>
+        </div>
+        <div class="item">
+            <label>No.Telepon</label>
+            <input type="text" id="telepon" value=""/>
+        </div>
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update" />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>

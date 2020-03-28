@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>Apk|CRUD</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://haykalpt.000webhostapp.com/phonegab-app/php/json.php";
+        $.getJSON(url, function(result) {
+            // console.log(result);
+            $.each(result, function(i, field) {
+                var kode_pelanggan = field.kode_pelanggan;
+                var nama_pelanggan = field.nama_pelanggan;
+                var kontak = field.kontak;
+                var alamat = field.alamat;
+                var telepon = field.telepon;
+                $("#listview").append("<a class='item' href='form.html?kode_pelanggan=" + kode_pelanggan + "&nama_pelanggan=" + nama_pelanggan +
+                "&kontak=" + kontak + "&alamat=" + alamat + "&telepon=" + telepon + "'><li class='list-group-item'><span class='item-note'><h2>" + kontak + "</h2></span>" +
+                nama_pelanggan + "<p>" + alamat + "<br>"+ telepon +"</p></li></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+  <div class="bar bar-header bar-positive" style="margin-bottom:80px;background-color: blue">
+      <a href="index.html" class="button button-clear">Home</a>
+      <h1 class="title">Lihat Data Pelanggan</h1>
+  </div>
+  <br/>
+  <br/>
+  <ul class="list" id="listview">
+  </ul>
+</body>
+
+</html>
